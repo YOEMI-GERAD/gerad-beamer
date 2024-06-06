@@ -1,0 +1,405 @@
+% \iffalse
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemegerad}[%
+    2024/06/04 v0.1.0 GERAD inner theme for beamer
+]
+%</package>
+% \fi
+% \CheckSum{0}
+% \StopEventually{}
+% \iffalse
+%<*package>
+%-------------------------------------- \fi
+%
+% \subsection{\themename inner theme}
+% \label{subsec:inner-theme}
+%
+% \subsubsection{Package dependencies}
+% \label{subsubsec:inner-theme:package-dependencies}
+%
+%    \begin{macrocode}
+\RequirePackage{etoolbox}
+\RequirePackage{keyval}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\RequirePackage{tikz}
+%    \end{macrocode}
+%
+% \subsubsection{Options}
+% \label{subsubsec:inner-theme:options}
+%
+% \begin{macro}{sectionpage}
+%    \begin{macrocode}
+\pgfkeys{
+    /gerad/inner/sectionpage/.cd,
+    .is choice,
+    none/.code=\gerad@sectionpage@none,
+    simple/.code=\gerad@sectionpage@simple,
+    fancy/.code=\gerad@sectionpage@fancy,
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{subsectionpage}
+%    \begin{macrocode}
+\pgfkeys{
+    /gerad/inner/subsectionpage/.cd,
+    .is choice,
+    none/.code=\gerad@subsectionpage@none,
+    simple/.code=\gerad@subsectionpage@simple,
+    fancy/.code=\gerad@subsectionpage@fancy,
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gerad@inner@setdefaults}
+%    \begin{macrocode}
+\newcommand{\gerad@inner@setdefaults}{
+    \pgfkeys{/gerad/inner/.cd,
+        sectionpage=fancy,
+        subsectionpage=none,
+    }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Title page}
+% \label{subsubsec:inner-theme:title-page}
+%
+% \begin{macro}{title page}
+%    \begin{macrocode}
+\setbeamertemplate{title page}{
+    \begin{minipage}[b][\paperheight]{\textwidth}
+        \ifx\inserttitlegraphic\@empty%
+        \else%
+        \usebeamertemplate*{title graphic}%
+        \fi
+        \vfill%
+        \ifx\inserttitle\@empty%
+        \else%
+        \usebeamertemplate*{title}%
+        \fi
+        \ifx\insertsubtitle\@empty%
+        \else%
+        \usebeamertemplate*{subtitle}%
+        \fi
+        \vfill%
+        \usebeamertemplate*{title separator}%
+        \vfill%
+        \ifx\beamer@shortauthor\@empty%
+        \else%
+        \usebeamertemplate*{author}%
+        \fi
+        \vfill%
+        \ifx\insertdate\@empty%
+        \else%
+        \usebeamertemplate*{date}%
+        \fi
+        \vfill%
+        \ifx\insertinstitute\@empty%
+        \else%
+        \usebeamertemplate*{institute}%
+        \fi
+        \vfill%
+        \vspace*{1em}
+    \end{minipage}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\maketitle}
+% \begin{macro}{\titlepage}
+%    \begin{macrocode}
+\def\maketitle{
+    \ifbeamer@inframe
+    \titlepage
+    \else
+    \begingroup%
+    \setbeamercolor{background canvas}{bg=titlelike.bg}%
+    \frame[
+        plain,noframenumbering
+    ]{\titlepage}
+    \endgroup%
+    \fi
+}
+\def\titlepage{
+    \usebeamertemplate{title page}
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{title graphic}
+%    \begin{macrocode}
+\setbeamertemplate{title graphic}{
+    \vbox to 0pt{
+        \vspace*{2em}
+        \inserttitlegraphic%
+    }%
+    \nointerlineskip
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{title}
+%    \begin{macrocode}
+\setbeamertemplate{title}{
+    \raggedright%
+    \linespread{1.0}
+    \usebeamercolor[fg]{title}%
+    \usebeamerfont{title}%
+    \inserttitle%
+    \par%
+    \vspace*{0.5em}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{subtitle}
+%    \begin{macrocode}
+\setbeamertemplate{subtitle}{
+    \raggedright%
+    \linespread{1.0}
+    \usebeamercolor[fg]{subtitle}%
+    \usebeamerfont{subtitle}%
+    \insertsubtitle%
+    \par%
+    \vspace*{0.5em}
+}
+%
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{title separator}
+%    \begin{macrocode}
+\newlength{\gerad@title@separator@linewidth}
+\setlength{\gerad@title@separator@linewidth}{0.5pt}
+\setbeamertemplate{title separator}{
+    \tikzexternaldisable%
+    \begin{tikzpicture}
+        \fill[fg] (0,0) rectangle (\textwidth,\gerad@title@separator@linewidth);
+    \end{tikzpicture}
+    \tikzexternalenable%
+    \par%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{author}
+%    \begin{macrocode}
+\setbeamertemplate{author}{
+    \vspace*{2em}%
+    \usebeamercolor[fg]{author}%
+    \usebeamerfont{author}%
+    \insertauthor%
+    \par%
+    \vspace*{0.25em}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{date}
+%    \begin{macrocode}
+\setbeamertemplate{date}{
+    \usebeamercolor[fg]{date}%
+    \usebeamerfont{date}%
+    \insertdate%
+    \par%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{institute}
+%    \begin{macrocode}
+\setbeamertemplate{institute}{
+    \usebeamercolor[fg]{institute}%
+    \usebeamerfont{institute}%
+    \insertinstitute%
+    \par%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Section and subsection pages}
+% \label{subsubsec:inner-theme:section-and-subsection-pages}
+% 
+% \begin{macro}{\gerad@sectionpage@none}
+%    \begin{macrocode}
+\newcommand{\gerad@sectionpage@none}{
+    \gerad@sectionpage@disable
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gerad@sectionpage@simple}
+%    \begin{macrocode}
+\newcommand{\gerad@sectionpage@simple}{
+    \gerad@sectionpage@enable
+    \setbeamertemplate{section page}[simple]
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gerad@sectionpage@fancy}
+%    \begin{macrocode}
+\newcommand{\gerad@sectionpage@fancy}{
+    \gerad@sectionpage@enable
+    \setbeamertemplate{section page}[fancy]
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{section page}
+%    \begin{macrocode}
+\defbeamertemplate{section page}{simple}{
+    \begin{center}
+        \usebeamercolor[fg]{section title}
+        \usebeamerfont{section title}
+        \insertsectionhead\par
+        \ifx\insertsubsectionhead\@empty%
+        \else%
+        \usebeamercolor[fg]{subsection title}
+        \usebeamerfont{subsection title}
+        \insertsubsectionhead\par
+        \fi
+    \end{center}
+}
+\defbeamertemplate{section page}{fancy}{
+    \begin{center}
+        \usebeamercolor[fg]{section title}
+        \usebeamerfont{section title}
+        \insertsectionhead\\[-1ex]
+        \usebeamertemplate*{progress bar in section page}
+        \par
+        \ifx\insertsubsectionhead\@empty%
+        \else%
+        \usebeamercolor[fg]{subsection title}
+        \usebeamerfont{subsection title}
+        \insertsubsectionhead\par
+        \fi
+    \end{center}
+}
+\newcommand{\gerad@sectionpage@disable}{
+    \AtBeginSection{}
+}
+\newcommand{\gerad@sectionpage@enable}{
+    \AtBeginSection{
+        \ifbeamer@inframe%
+        \sectionpage%
+        \else%
+        \setbeamercolor{background canvas}{bg=section page.bg}%
+        \frame[plain,c,noframenumbering]{\sectionpage}%
+        \fi%
+    }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gerad@subsectionpage@none}
+%    \begin{macrocode}
+\newcommand{\gerad@subsectionpage@none}{
+    \gerad@subsectionpage@disable
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gerad@subsectionpage@simple}
+%    \begin{macrocode}
+\newcommand{\gerad@subsectionpage@simple}{
+    \gerad@subsectionpage@enable
+    \setbeamertemplate{subsection page}[simple]
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gerad@subsectionpage@fancy}
+%    \begin{macrocode}
+\newcommand{\gerad@subsectionpage@fancy}{
+    \gerad@subsectionpage@enable
+    \setbeamertemplate{subsection page}[fancy]
+}
+%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{subsection page}
+%    \begin{macrocode}
+\defbeamertemplate{subsection page}{simple}{
+    \begin{center}
+        \usebeamercolor[fg]{section title}
+        \usebeamerfont{section title}
+        \insertsectionhead\par
+        \usebeamercolor[fg]{subsection title}
+        \usebeamerfont{subsection title}
+        \insertsubsectionhead\par
+    \end{center}
+}
+\defbeamertemplate{subsection page}{fancy}{
+    \begin{center}
+        \usebeamercolor[fg]{section title}
+        \usebeamerfont{section title}
+        \insertsectionhead\par
+        \usebeamercolor[fg]{subsection title}
+        \usebeamerfont{subsection title}
+        \insertsubsectionhead\par
+        \usebeamertemplate*{progress bar in subsection page}
+    \end{center}
+}
+\newcommand{\gerad@subsectionpage@disable}{
+    \AtBeginSubsection{}
+}
+\newcommand{\gerad@subsectionpage@enable}{
+    \AtBeginSubsection{
+        \ifbeamer@inframe%
+        \subsectionpage%
+        \else%
+        \setbeamercolor{background canvas}{bg=subsection page.bg}%
+        \frame[plain,c,noframenumbering]{\subsectionpage}%
+        \fi%
+    }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{progress bar in section page}
+%    \begin{macrocode}
+\newlength{\gerad@progress@section@page}
+\newlength{\gerad@progress@section@page@linewidth}
+\setlength{\gerad@progress@section@page@linewidth}{0.5pt}
+\newlength{\gerad@progress@section@page@width}
+\setlength{\gerad@progress@section@page@width}{22em}
+\setbeamertemplate{progress bar in section page}{
+    \setlength{\gerad@progress@section@page}{%
+        \gerad@progress@section@page@width*
+        \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+    }
+    \tikzexternaldisable%
+    \begin{tikzpicture}
+        \fill[fg] (0,0) rectangle (\gerad@progress@section@page@width,\gerad@progress@section@page@linewidth);
+        \fill[bg] (0,0) rectangle (\gerad@progress@section@page,\gerad@progress@section@page@linewidth);
+    \end{tikzpicture}
+    \tikzexternalenable%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\def\inserttotalframenumber{100}
+%    \end{macrocode}
+%
+% \subsubsection{Process options}
+% \label{subsubsec:inner-theme:process-options}
+%
+%    \begin{macrocode}
+\gerad@inner@setdefaults
+\ProcessPgfOptions{/gerad/inner}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+% \Finale
+\endinput

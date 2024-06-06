@@ -1,0 +1,89 @@
+\documentclass{ltxdoc}
+%\OnlyDescription
+
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{xspace}
+\onehalfspacing
+
+\usepackage{etoolbox}
+\usepackage{ifxetex}
+\usepackage{ifluatex}
+
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep}
+\setlist[enumerate]{noitemsep}
+
+\usepackage{xcolor}
+\definecolor{mDarkBrown}{HTML}{604c38}
+\definecolor{mDarkTeal}{HTML}{23373b}
+\definecolor{mLightBrown}{HTML}{EB811B}
+\definecolor{mLightGreen}{HTML}{14B03D}
+\definecolor{mBackground}{HTML}{FFFFFF}
+
+\usepackage{listings}
+\lstset{%
+  language=[LaTeX]{TeX},
+  basicstyle=\ttfamily,
+  keywordstyle=\color{mLightBrown}\bfseries,
+  commentstyle=\color{mLightGreen},
+  stringstyle=\color{mLightGreen},
+  backgroundcolor=\color{mBackground},
+  numbers=none,
+  numberstyle=\tiny\ttfamily,
+  stepnumber=2,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=none,
+  framerule=1pt,
+  tabsize=2,
+  rulesep=5em,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  framexleftmargin=0em,
+  framexrightmargin=0em,
+  xleftmargin=0em,
+  xrightmargin=0em,
+  aboveskip=1em,
+  belowskip=1em,
+  morekeywords={
+    usetheme,%
+    institute,%
+    maketitle,%
+    @gerad@titleformat,%
+    plain,%
+    setbeamercolor,%
+    geradset,%
+    setsansfont,%
+    setmonofont%
+  },
+}
+\lstMakeShortInline|
+
+\newcommand{\themename}{\texttt{GERAD}\xspace}
+
+\usepackage{readprov}
+\ReadPackageInfos{beamerthemegerad}
+
+
+\title{The \themename\ theme for Beamer}
+\author{Youssouf Emine}
+\date{\fileversion\qquad\filedate}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+\section{Implementation}
+
+\DocInput{beamerthemegerad.dtx}
+\DocInput{beamerinnerthemegerad.dtx}
+\DocInput{beamerouterthemegerad.dtx}
+\DocInput{beamerfontthemegerad.dtx}
+\DocInput{beamercolorthemegerad.dtx}
+
+
+\end{document}

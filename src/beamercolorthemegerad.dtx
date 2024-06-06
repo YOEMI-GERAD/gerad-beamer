@@ -1,0 +1,308 @@
+% \iffalse
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemegerad}[%
+    2024/06/04 GERAD color theme for beamer
+]
+%</package>
+% \fi
+% \CheckSum{0}
+% \StopEventually{}
+% \iffalse
+%<*package>
+%-------------------------------------- \fi
+%
+% \subsection{\themename color theme}
+% \label{subsec:color-theme}
+%
+%
+% \subsubsection{Package dependencies}
+% \label{subsubsec:color-theme:color-theme:package-dependencies}
+%
+%    \begin{macrocode}
+\RequirePackage{pgfopts}
+%    \end{macrocode}
+%
+% \subsubsection{Options}
+% \label{subsubsec:color-theme:color-theme:options}
+%
+% \begin{macro}{block}
+%    \begin{macrocode}
+\pgfkeys{
+    /gerad/color/block/.cd,
+    .is choice,
+    transparent/.code=\gerad@block@transparent,
+    filled/.code=\gerad@block@filled,
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{background}
+%    \begin{macrocode}
+\pgfkeys{
+    /gerad/color/background/.cd,
+    .is choice,
+    light/.code=\gerad@colors@light,
+    dark/.code=\gerad@colors@dark,
+}
+%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gerad@color@setdefaults}
+%    \begin{macrocode}
+\def\gerad@color@setdefaults{
+    \pgfkeys{/gerad/color/.cd,
+        background=light,
+        block=transparent,
+    }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Base colors}
+% \label{subsubsec:color-theme:color-theme:base-colors}
+%
+%    \begin{macrocode}
+\definecolor{gDarkBlue}{RGB}{0, 77, 141}
+\definecolor{gLightBlue}{RGB}{0, 77, 141}
+\definecolor{gBlue}{RGB}{0, 77, 141}
+\definecolor{gDarkOrange}{RGB}{204, 102, 0}
+\definecolor{gLightOrange}{RGB}{255, 128, 0}
+%    \end{macrocode}
+%
+% \subsubsection{Base styles}
+% \label{subsubsec:color-theme:color-theme:base-styles}
+%
+%    \begin{macrocode}
+\newcommand{\gerad@colors@dark}{
+    \setbeamercolor{normal text}{
+        fg=white!98,
+        bg=gDarkBlue,
+    }
+    \usebeamercolor[fg]{normal text}
+}
+\newcommand{\gerad@colors@light}{
+    \setbeamercolor{normal text}{
+        fg=black!98,
+        bg=white,
+    }
+    \usebeamercolor[fg]{normal text}
+}
+\setbeamercolor{alerted text}{
+    fg=gDarkOrange,
+}
+\setbeamercolor{example text}{
+    fg=gLightOrange,
+}
+%    \end{macrocode}
+%
+% \subsubsection{Derived colors}
+% \label{subsubsec:color-theme:color-theme:derived-colors}
+%
+%    \begin{macrocode}
+\setbeamercolor{titlelike}{
+    fg=normal text.bg,
+    bg=gBlue
+}
+\setbeamercolor{title}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{subtitle}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{author}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{institute}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{date}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{structure}{
+    use=normal text,
+    parent=normal text,
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\setbeamercolor{palette primary}{
+    use=normal text,
+    fg=normal text.bg,
+    bg=normal text.fg,
+}
+\setbeamercolor{frametitle}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{framesubtitle}{
+    use=titlelike,
+    parent=titlelike,
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\setbeamercolor{section page}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{section title}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{section title in head/foot}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{section in head/foot}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{section in sidebar}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{section in sidebar shaded}{
+    use=titlelike,
+    parent=titlelike,
+}
+%    \end{macrocode}
+%    \begin{macrocode}
+\setbeamercolor{subsection page}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{subsection title}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{subsection title in head/foot}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{subsection in head/foot}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{subsection in sidebar}{
+    use=titlelike,
+    parent=titlelike,
+}
+\setbeamercolor{subsection in sidebar shaded}{
+    use=titlelike,
+    parent=titlelike,
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\setbeamercolor{progress bar}{
+    use=alerted text,
+    fg=alerted text.fg,
+    bg=alerted text.fg!50!black!25,
+}
+\setbeamercolor{progress bar in head/foot}{
+    use=progress bar,
+    parent=progress bar,
+}
+\setbeamercolor{progress bar in section page}{
+    use=progress bar,
+    parent=progress bar,
+}
+\setbeamercolor{title separator}{
+    use=progress bar,
+    parent=progress bar,
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\newcommand{\gerad@block@transparent}{
+    \setbeamercolor{block title}{
+        use=normal text,
+        fg=normal text.fg,
+        bg=
+    }
+    \setbeamercolor{block body}{
+        bg=
+    }
+}
+\newcommand{\gerad@block@filled}{
+    \setbeamercolor{block title}{
+        use=normal text,
+        fg=normal text.fg,
+        bg=normal text.bg!80!fg,
+    }
+    \setbeamercolor{block body}{
+        use={block title, normal text},
+        bg=block title.bg!50!normal text.bg,
+    }
+    \setbeamercolor{block title alerted}{
+        use={block title, alerted text},
+        bg=block title.bg,
+        fg=alerted text.fg,
+    }
+    \setbeamercolor{block body alerted}{
+        use=block body,
+        parent=block body,
+    }
+    \setbeamercolor{block title example}{
+        use={block title, example text},
+        bg=block title.bg,
+        fg=example text.fg,
+    }
+    \setbeamercolor{block body example}{
+        use=block body,
+        parent=block body,
+    }
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\setbeamercolor{footnote}{
+    fg=normal text.fg!80
+}
+\setbeamercolor{footnote mark}{
+    fg=.
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\setbeamercolor{bibliography entry author}{
+    fg=,
+    bg=,
+}
+\setbeamercolor{bibliography entry title}{
+    fg=,
+    bg=,
+}
+\setbeamercolor{bibliography entry location}{
+    fg=,
+    bg=,
+}
+\setbeamercolor{bibliography entry note}{
+    fg=,
+    bg=,
+}
+%    \end{macrocode}
+%
+% \subsubsection{Process options}
+%
+%    \begin{macrocode}
+\gerad@color@setdefaults
+\ProcessPgfPackageOptions{/gerad/color}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\mode<all>
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+% \Finale
+\endinput

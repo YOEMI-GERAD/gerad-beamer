@@ -1,0 +1,120 @@
+% \iffalse
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{beamerthemegerad}[%
+    2024/06/04 v0.1.0 GERAD theme for beamer
+]
+%</package>
+% \fi
+% \CheckSum{0}
+% \StopEventually{}
+% \iffalse
+%<*package>
+%-------------------------------------- \fi
+%
+% \subsection{\themename parent theme}
+% \label{subsec:parent-theme}
+%
+% \subsubsection{Package dependencies}
+% \label{subsubsec:parent-theme:package-dependencies}
+% 
+%    \begin{macrocode}
+\RequirePackage{etoolbox}
+\RequirePackage{pgfopts}
+%    \end{macrocode}
+%
+% \subsubsection{Options}
+% \label{subsubsec:parent-theme:options}
+%
+%    \begin{macrocode}
+\pgfkeys{/gerad/.cd,
+    .search also={
+        /gerad/inner,
+        /gerad/outer,
+        /gerad/color,
+        /gerad/font,
+    }
+}
+%    \end{macrocode}
+%
+% \begin{macro}{titleformat plain}    
+%    \begin{macrocode}
+\pgfkeys{/gerad/titleformat plain/.cd,
+    .is choice,
+    regular/.code={
+        \let\gerad@plain@titleformat\@empty%
+        \setbeamerfont{standout}{shape=\normalfont}
+    },
+    smallcaps/.code={
+        \let\gerad@plain@titleformat\@empty%
+        \setbeamerfont{standout}{shape=\scshape}
+    },
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{titleformat}
+%    \begin{macrocode}
+\pgfkeys{
+    /gerad/titleformat/.code=\pfgkeysalso{
+        font/titleformat title=#1,
+        font/titleformat subtitle=#1,
+        font/titleformat section=#1,
+        font/titleformat frame=#1,
+        titleformat plain=#1,
+    }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% Set default options.
+%
+%    \begin{macrocode}
+\newcommand{\gerad@setdefaults}{%
+    \pgfkeys{
+        /gerad/.cd,
+        titleformat plain=regular,
+    }
+}
+%    \end{macrocode}
+
+%    \begin{macrocode}
+\providecommand{\tikzexternalenable}{}
+\providecommand{\tikzexternaldisable}{}
+%    \end{macrocode}
+%
+% \subsubsection{Sub-themes}
+% \label{subsubsec:parent-theme:sub-themes}
+%
+%    \begin{macrocode}
+\useinnertheme{gerad}
+\useoutertheme{gerad}
+\usefonttheme{gerad}
+\usecolortheme{gerad}
+%    \end{macrocode}
+%
+% \subsubsection{Commands}
+% \label{subsubsec:parent-theme:commands}
+%
+% \begin{macro}{\geradset}
+%    \begin{macrocode}
+\newcommand{\geradset}[1]{%
+    \pgfkeys{/gerad/.cd,#1}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Process options}
+% \label{subsubsec:parent-theme:process-options}
+%
+%    \begin{macrocode}
+\gerad@setdefaults
+\ProcessPgfOptions{/gerad}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+% \Finale
+\endinput

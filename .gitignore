@@ -302,4 +302,11 @@ TSWLatexianTemp*
 
 
 .aux/
+.latex-cache/
 *.gz
+
+# Output
+*.sty
+*.cls
+doc/*.pdf
+demo/demo.pdf
